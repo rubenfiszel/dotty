@@ -801,6 +801,7 @@ class Namer { typer: Typer =>
       denot.info = typeSig(sym)
       invalidateIfClashingSynthetic(denot)
       Checking.checkWellFormed(sym)
+      denot.normalizeOpaque()
       denot.info = avoidPrivateLeaks(sym, sym.pos)
     }
   }

@@ -182,8 +182,8 @@ Standard-Section: "ASTs" TopLevelStat*
                   LAZY
                   OVERRIDE
                   TRANSPARENT
-                  TYPELEVEL                           // transparent method containing toplevel matches (TODO: merge with MACRO)
                   MACRO                               // transparent method containing toplevel splices
+                  OPAQUE                              // opaque type
                   STATIC                              // mapped to static Java member
                   OBJECT                              // an object or its class
                   TRAIT                               // a trait
@@ -298,26 +298,26 @@ object TastyFormat {
   final val LAZY = 14
   final val OVERRIDE = 15
   final val TRANSPARENT = 16
-
-  final val STATIC = 18
-  final val OBJECT = 19
-  final val TRAIT = 20
-  final val ENUM = 21
-  final val LOCAL = 22
-  final val SYNTHETIC = 23
-  final val ARTIFACT = 24
-  final val MUTABLE = 25
-  final val LABEL = 26
-  final val FIELDaccessor = 27
-  final val CASEaccessor = 28
-  final val COVARIANT = 29
-  final val CONTRAVARIANT = 30
-  final val SCALA2X = 31
-  final val DEFAULTparameterized = 32
-  final val STABLE = 33
-  final val MACRO = 34
-  final val ERASED = 35
-  final val PARAMsetter = 36
+  final val STATIC = 17
+  final val OBJECT = 18
+  final val TRAIT = 19
+  final val ENUM = 20
+  final val LOCAL = 20
+  final val SYNTHETIC = 21
+  final val ARTIFACT = 22
+  final val MUTABLE = 23
+  final val LABEL = 24
+  final val FIELDaccessor = 25
+  final val CASEaccessor = 26
+  final val COVARIANT = 27
+  final val CONTRAVARIANT = 28
+  final val SCALA2X = 29
+  final val DEFAULTparameterized = 30
+  final val STABLE = 31
+  final val MACRO = 32
+  final val ERASED = 33
+  final val OPAQUE = 34
+  final val PARAMsetter = 35
   final val EMPTYTREE = 37
   final val EMPTYTYPETREE = 38
 
@@ -477,6 +477,7 @@ object TastyFormat {
        | OVERRIDE
        | TRANSPARENT
        | MACRO
+       | OPAQUE
        | STATIC
        | OBJECT
        | TRAIT
@@ -533,6 +534,7 @@ object TastyFormat {
     case OVERRIDE => "OVERRIDE"
     case TRANSPARENT => "TRANSPARENT"
     case MACRO => "MACRO"
+    case OPAQUE => "OPAQUE"
     case STATIC => "STATIC"
     case OBJECT => "OBJECT"
     case TRAIT => "TRAIT"

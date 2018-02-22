@@ -15,7 +15,7 @@ import scala.language.implicitConversions
 class DecompilerPrinter(_ctx: Context) extends RefinedPrinter(_ctx) {
 
   override protected def filterModTextAnnots(annots: List[untpd.Tree]): List[untpd.Tree] =
-    annots.filter(_.tpe != defn.SourceFileAnnotType)
+    super.filterModTextAnnots(annots).filter(_.tpe != defn.SourceFileAnnotType)
 
   override protected def blockToText[T >: Untyped](block: Block[T]): Text =
     block match {

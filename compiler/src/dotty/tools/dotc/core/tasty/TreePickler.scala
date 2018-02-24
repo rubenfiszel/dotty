@@ -640,9 +640,7 @@ class TreePickler(pickler: TastyPickler) {
       // Such annotations will be reconstituted when unpickling the child class.
       // See tests/pickling/i3149.scala
     case _ =>
-      val sym = ann.symbol
-      sym == defn.OpaqueAliasAnnot || sym == defn.LinkedTypeAnnot
-        // these are reconstituted automatically when unpickling
+      ann.symbol == defn.OpaqueAliasAnnot // reconstituted automatically when unpickling
   }
 
   def pickleAnnotation(owner: Symbol, ann: Annotation)(implicit ctx: Context) =

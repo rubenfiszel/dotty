@@ -256,6 +256,8 @@ object Flags {
   /** An opqaue type */
   final val Opaque = typeFlag(12, "opaque")
 
+  final val MutableOrOpaque = Mutable.toCommonFlags
+
   /** Symbol is local to current class (i.e. private[this] or protected[this]
    *  pre: Private or Protected are also set
    */
@@ -454,7 +456,7 @@ object Flags {
   final val FromStartFlags =
     Module | Package | Deferred | Method.toCommonFlags |
     HigherKinded.toCommonFlags | Param | ParamAccessor.toCommonFlags |
-    Scala2ExistentialCommon | Mutable.toCommonFlags | Touched | JavaStatic |
+    Scala2ExistentialCommon | MutableOrOpaque | Touched | JavaStatic |
     CovariantOrOuter | ContravariantOrLabel | CaseAccessor.toCommonFlags |
     NonMember | ImplicitCommon | Permanent | Synthetic |
     SuperAccessorOrScala2x | Transparent

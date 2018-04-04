@@ -9,7 +9,7 @@ import dotc.reporting.MessageRendering
 import dotc.reporting.diagnostic.MessageContainer
 import dotc.ast.untpd
 import dotc.ast.tpd
-import dotc.interactive.{ SourceTree, Interactive }
+import dotc.interactive.{ SourceNamedTree, Interactive }
 import dotc.core.Contexts.Context
 import dotc.{ CompilationUnit, Run }
 import dotc.core.Mode

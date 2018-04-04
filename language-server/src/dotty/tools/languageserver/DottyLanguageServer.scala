@@ -279,7 +279,7 @@ class DottyLanguageServer extends LanguageServer
               (driver.allTreesContaining(sym.name.sourceModuleName.toString),
                 Include.overriding | Include.overridden)
             else
-              (SourceTree.fromSymbol(sym.topLevelClass.asClass).toList,
+              (SourceTree.fromSymbol(sym.topLevelClass.asClass),
                 Include.overriding)
           Interactive.namedTrees(trees, include, sym)
       }

@@ -189,6 +189,7 @@ class CompilationTests extends ParallelTesting {
     compileFile("tests/neg-custom-args/i3882.scala", allowDeepSubtypes) +
     compileFile("tests/neg-custom-args/i1754.scala", allowDeepSubtypes) +
     compileFilesInDir("tests/neg-custom-args/isInstanceOf", allowDeepSubtypes and "-Xfatal-warnings") +
+    compileFilesInDir("tests/neg-custom-args/safe-init", defaultOptions and "-Xfatal-warnings") +
     compileFile("tests/neg-custom-args/i3627.scala", allowDeepSubtypes)
   }.checkExpectedErrors()
 

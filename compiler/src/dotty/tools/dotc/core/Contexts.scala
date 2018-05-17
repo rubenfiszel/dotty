@@ -693,7 +693,7 @@ object Contexts {
     // @sharable val theBase = new ContextBase // !!! DEBUG, so that we can use a minimal context for reporting even in code that normally cannot access a context
   }
 
-  class GADTMap(initBounds: SimpleIdentityMap[Symbol, TypeBounds]) extends util.DotClass {
+  class GADTMap(initBounds: SimpleIdentityMap[Symbol, TypeBounds]) {
     private[this] var myBounds = initBounds
     def setBounds(sym: Symbol, b: TypeBounds): Unit =
       myBounds = myBounds.updated(sym, b)

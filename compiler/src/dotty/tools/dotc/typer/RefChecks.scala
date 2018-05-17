@@ -837,7 +837,7 @@ object RefChecks {
 
   type LevelAndIndex = immutable.Map[Symbol, (LevelInfo, Int)]
 
-  class OptLevelInfo extends DotClass {
+  class OptLevelInfo {
     def levelAndIndex: LevelAndIndex = Map()
     def enterReference(sym: Symbol, pos: Position): Unit = ()
   }

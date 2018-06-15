@@ -882,6 +882,9 @@ class Definitions {
     if (n <= MaxImplementedFunctionArity && (!isImplicit || ctx.erasedTypes) && !isErased) ImplementedFunctionType(n)
     else FunctionClass(n, isImplicit, isErased).typeRef
 
+  lazy val PolyFunctionClass = ctx.requiredClass("scala.PolyFunction")
+  def PolyFunctionType = PolyFunctionClass.typeRef
+
   private lazy val TupleTypes: Set[TypeRef] = TupleType.toSet
 
   /** If `cls` is a class in the scala package, its name, otherwise EmptyTypeName */

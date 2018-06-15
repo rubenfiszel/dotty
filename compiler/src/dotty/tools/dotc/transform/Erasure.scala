@@ -378,21 +378,26 @@ object Erasure {
      */
     override def typedSelect(tree: untpd.Select, pt: Type)(implicit ctx: Context): Tree = {
 
+      val qual1 = typed(tree.qualifier, AnySelectionProto)
+
       def mapOwner(sym: Symbol): Symbol = {
-        def recur(owner: Symbol): Symbol =
-          if ((owner eq defn.AnyClass) || (owner eq defn.AnyValClass)) {
-            assert(sym.isConstructor, s"${sym.showLocated}")
-            defn.ObjectClass
-          } else if (defn.isSyntheticFunctionClass(owner))
-            defn.erasedFunctionClass(owner)
-          else
-            owner
-        recur(sym.owner)
+        val owner = sym.maybeOwner
+        if (!owner.exists) {
+          // Hack for PolyFunction#apply
+          qual1.tpe.widen.typeSymbol
+        } else if ((owner eq defn.AnyClass) || (owner eq defn.AnyValClass)) {
+          assert(sym.isConstructor, s"${sym.showLocated}")
+          defn.ObjectClass
+        } else if (defn.isSyntheticFunctionClass(owner)) {
+          defn.erasedFunctionClass(owner)
+        }
+        else
+          owner
       }
 
       val origSym = tree.symbol
       val owner = mapOwner(origSym)
-      val sym = if (owner eq origSym.owner) origSym else owner.info.decl(origSym.name).symbol
+      val sym = if (owner eq origSym.maybeOwner) origSym else owner.info.decl(tree.name).symbol
       assert(sym.exists, origSym.showLocated)
 
       def select(qual: Tree, sym: Symbol): Tree =
@@ -436,7 +441,7 @@ object Erasure {
         }
       }
 
-      recur(typed(tree.qualifier, AnySelectionProto))
+      recur(qual1)
     }
 
     override def typedThis(tree: untpd.This)(implicit ctx: Context): Tree =

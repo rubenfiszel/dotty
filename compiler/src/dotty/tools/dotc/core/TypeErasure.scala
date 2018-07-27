@@ -212,7 +212,7 @@ object TypeErasure {
   def isGeneric(tp: Type)(implicit ctx: Context): Boolean = tp.dealias match {
     case tp: TypeRef => !tp.symbol.isClass
     case tp: TypeParamRef => true
-    case tp: TypeProxy => isGeneric(tp.underlying)
+    case tp: TypeProxy => isGeneric(tp.superType)
     case tp: AndType => isGeneric(tp.tp1) || isGeneric(tp.tp2)
     case tp: OrType => isGeneric(tp.tp1) || isGeneric(tp.tp2)
     case _ => false

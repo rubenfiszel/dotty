@@ -5,10 +5,9 @@ object ia {
   opaque type IArray[A1] = Array[A1]
 
   object IArray {
-    @inline final def initialize[A](body: => Array[A]): IArray[A] = body
-
-    @inline final def size[A](ia: IArray[A]): Int = ia.length
-    @inline final def get[A](ia: IArray[A], i: Int): A = ia(i)
+    transparent def initialize[A](body: => Array[A]): IArray[A] = body
+    transparent def size[A](ia: IArray[A]): Int = ia.length
+    transparent def get[A](ia: IArray[A], i: Int): A = ia(i)
 
     // return a sorted copy of the array
     def sorted[A <: AnyRef : math.Ordering](ia: IArray[A]): IArray[A] = {

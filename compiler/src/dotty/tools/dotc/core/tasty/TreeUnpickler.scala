@@ -793,6 +793,7 @@ class TreeUnpickler(reader: TastyReader,
               case _ => TypeAlias(rhs.tpe)
             }
             sym.resetFlag(Provisional)
+            sym.normalizeOpaque()
             TypeDef(rhs)
           }
         case PARAM =>

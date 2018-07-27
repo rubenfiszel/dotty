@@ -691,6 +691,7 @@ class ReifyQuotes extends MacroTransformWithImplicits with InfoTransformer {
   }
 
   override protected def mayChange(sym: Symbol)(implicit ctx: Context): Boolean =
+    ctx.compilationUnit != null &&
     ctx.compilationUnit.containsQuotesOrSplices && sym.isTerm && sym.is(Macro)
 
   /** Returns the type of the compiled macro as a lambda: Seq[Any] => Object */

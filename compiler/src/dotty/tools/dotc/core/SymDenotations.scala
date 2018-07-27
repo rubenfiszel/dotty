@@ -395,7 +395,7 @@ object SymDenotations {
             val arg =
               if (companion.exists) RefinedType(alias, nme.COMPANION, companion.termRef)
               else alias
-            addAnnotation(Annotation(tpd.TypeTree(defn.OpaqueAliasAnnot.typeRef.appliedTo(arg))))
+            addAnnotation(Annotation(tpd.TypeTree(defn.OpaqueAliasAnnot.typeRef.appliedTo(arg)).withPos(symbol.pos)))
             info = TypeBounds(defn.NothingType, abstractRHS(alias))
             setFlag(Deferred)
           case _ =>

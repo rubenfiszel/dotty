@@ -142,7 +142,7 @@ object ProtoTypes {
           memberProto.isRef(defn.UnitClass) ||
           tp1.isValueType && compat.normalizedCompatible(NamedType(tp1, name, m), memberProto)
             // Note: can't use `m.info` here because if `m` is a method, `m.info`
-            //       loses knowledge about `m`'s default arguments. ||
+            //       loses knowledge about `m`'s default arguments.
         mbr match { // hasAltWith inlined for performance
           case NoDenotation =>
             val tp2 = tp1.followGADT

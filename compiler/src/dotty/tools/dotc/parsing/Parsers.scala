@@ -1721,7 +1721,7 @@ object Parsers {
       case PRIVATE     => Mod.Private()
       case PROTECTED   => Mod.Protected()
       case SEALED      => Mod.Sealed()
-      case OPAQUE    => Mod.Opaque()
+      case OPAQUE      => Mod.Opaque()
     }
 
     /** Drop `private' modifier when followed by a qualifier.

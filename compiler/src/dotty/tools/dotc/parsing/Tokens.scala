@@ -94,6 +94,7 @@ abstract class TokensCommon {
   //final val TRANSPARENT = 62;      enter(TRANSPARENT, "transparent")
   //final val ENUM = 63;             enter(ENUM, "enum")
   //final val ERASED = 64;           enter(ERASED, "erased")
+  //final val OPAQUE = 65;           enter(OPAQUE, "opaque")
 
   /** special symbols */
   final val COMMA = 70;            enter(COMMA, "','")

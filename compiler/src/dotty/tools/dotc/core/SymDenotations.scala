@@ -1015,7 +1015,7 @@ object SymDenotations {
      *  and which is also defined in the same scope and compilation unit.
      *  NoSymbol if this type does not exist.
      */
-	final def companionOpaqueType(implicit ctx: Context): Symbol =
+    final def companionOpaqueType(implicit ctx: Context): Symbol =
       companionType.suchThat(_.is(Opaque)).symbol
 
     final def scalacLinkedClass(implicit ctx: Context): Symbol =

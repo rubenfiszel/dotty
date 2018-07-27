@@ -2166,6 +2166,11 @@ object Types {
       }
       info
     }
+
+    /** The info, following opaqueAliases */
+    def translucentInfo(implicit ctx: Context) =
+      if (symbol.is(Opaque)) symbol.opaqueAlias.asSeenFrom(prefix, symbol.owner)
+      else info
   }
 
   final class CachedTermRef(prefix: Type, designator: Designator, hc: Int) extends TermRef(prefix, designator) {

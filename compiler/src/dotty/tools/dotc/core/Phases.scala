@@ -211,6 +211,7 @@ object Phases {
     private[this] var myTyperPhase: Phase = _
     private[this] var mySbtExtractDependenciesPhase: Phase = _
     private[this] var myPicklerPhase: Phase = _
+    private[this] var myFirstTransformPhase: Phase = _
     private[this] var myCollectNullableFieldsPhase: Phase = _
     private[this] var myRefChecksPhase: Phase = _
     private[this] var myPatmatPhase: Phase = _
@@ -227,6 +228,7 @@ object Phases {
     final def typerPhase = myTyperPhase
     final def sbtExtractDependenciesPhase = mySbtExtractDependenciesPhase
     final def picklerPhase = myPicklerPhase
+    final def firstTransformPhase = myFirstTransformPhase
     final def collectNullableFieldsPhase = myCollectNullableFieldsPhase
     final def refchecksPhase = myRefChecksPhase
     final def patmatPhase = myPatmatPhase
@@ -246,6 +248,7 @@ object Phases {
       myTyperPhase = phaseOfClass(classOf[FrontEnd])
       mySbtExtractDependenciesPhase = phaseOfClass(classOf[sbt.ExtractDependencies])
       myPicklerPhase = phaseOfClass(classOf[Pickler])
+      myFirstTransformPhase = phaseOfClass(classOf[FirstTransform])
       myCollectNullableFieldsPhase = phaseOfClass(classOf[CollectNullableFields])
       myRefChecksPhase = phaseOfClass(classOf[RefChecks])
       myElimRepeatedPhase = phaseOfClass(classOf[ElimRepeated])

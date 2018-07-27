@@ -379,13 +379,14 @@ class TypeErasure(isJava: Boolean, semiEraseVCs: Boolean, isConstructor: Boolean
       tp
     case tp: TypeRef =>
       val sym = tp.symbol
-      if (!sym.isClass) this(tp.info)
+      if (!sym.isClass) this(tp.translucentInfo)
       else if (semiEraseVCs && isDerivedValueClass(sym)) eraseDerivedValueClassRef(tp)
       else if (sym == defn.ArrayClass) apply(tp.appliedTo(TypeBounds.empty)) // i966 shows that we can hit a raw Array type.
       else if (defn.isSyntheticFunctionClass(sym)) defn.erasedFunctionType(sym)
       else eraseNormalClassRef(tp)
     case tp: AppliedType =>
-      if (tp.tycon.isRef(defn.ArrayClass)) eraseArray(tp)
+      val ectx = erasedArrayContext(tp.tycon)
+      if (ectx `ne` NoContext) eraseArray(tp)(ectx)
       else if (tp.isRepeatedParam) apply(tp.underlyingIfRepeated(isJava))
       else apply(tp.superType)
     case _: TermRef | _: ThisType =>
@@ -435,6 +436,27 @@ class TypeErasure(isJava: Boolean, semiEraseVCs: Boolean, isConstructor: Boolean
       tp
     case tp if (tp `eq` NoType) || (tp `eq` NoPrefix) =>
       tp
+  }
+
+  /** If `tp` erases to an array application, the context to be used for computing the erasure,
+   *  otherwise NoContext. The context to be used is `ctx`, but if there are opaque types
+   *  on the erasure path, moved forward to the the phase following FirstTransform,
+   *  so that opaque aliases are known.
+   */
+  private def erasedArrayContext(tp: Type)(implicit ctx: Context): Context = tp.dealias match {
+    case tp: TypeRef =>
+      val sym = tp.symbol
+      if (sym.isClass)
+        if (sym == defn.ArrayClass) ctx
+        else NoContext
+      else
+        if (sym.is(Opaque))
+          erasedArrayContext(tp.translucentInfo)(ctx.withPhaseNoEarlier(ctx.firstTransformPhase.next))
+        else erasedArrayContext(tp.superType)
+    case tp: TypeProxy =>
+      erasedArrayContext(tp.superType)
+    case _ =>
+      NoContext
   }
 
   private def eraseArray(tp: Type)(implicit ctx: Context) = {
@@ -488,7 +510,7 @@ class TypeErasure(isJava: Boolean, semiEraseVCs: Boolean, isConstructor: Boolean
       // constructor method should not be semi-erased.
       else if (isConstructor && isDerivedValueClass(sym)) eraseNormalClassRef(tp)
       else this(tp)
-    case AppliedType(tycon, _) if !(tycon isRef defn.ArrayClass) =>
+    case AppliedType(tycon, _) if erasedArrayContext(tycon) `eq` NoContext =>
       eraseResult(tycon)
     case _ =>
       this(tp)
@@ -516,7 +538,7 @@ class TypeErasure(isJava: Boolean, semiEraseVCs: Boolean, isConstructor: Boolean
         }
         val sym = tp.symbol
         if (!sym.isClass) {
-          val info = tp.info
+          val info = tp.translucentInfo
           if (!info.exists) assert(false, "undefined: $tp with symbol $sym")
           return sigName(info)
         }
@@ -529,8 +551,9 @@ class TypeErasure(isJava: Boolean, semiEraseVCs: Boolean, isConstructor: Boolean
         else
           normalizeClass(sym.asClass).fullName.asTypeName
       case tp: AppliedType =>
+        val ectx = erasedArrayContext(tp.tycon)
         sigName(
-          if (tp.tycon.isRef(defn.ArrayClass)) this(tp)
+          if (ectx `ne` NoContext) this(tp)(ectx)
           else if (tp.tycon.typeSymbol.isClass) tp.underlying
           else tp.superType)
       case ErasedValueType(_, underlying) =>

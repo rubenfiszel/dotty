@@ -50,4 +50,5 @@ object tagging {
 
   // uses ClassTag[Double] via 'Tagged.taggedClassTag'.
   val ys = new Array[Double @@ Foot](20)
+  val ys1 = new Array[Double](20)
 }

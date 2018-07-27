@@ -1715,7 +1715,8 @@ object SymDenotations {
 
             def computeTypeRef = {
               btrCache.put(tp, NoPrefix)
-              tp.symbol.denot match {
+              val tpSym = tp.symbol
+              tpSym.denot match {
                 case clsd: ClassDenotation =>
                   def isOwnThis = prefix match {
                     case prefix: ThisType => prefix.cls `eq` clsd.owner
@@ -1723,7 +1724,7 @@ object SymDenotations {
                     case _ => false
                   }
                   val baseTp =
-                    if (tp.symbol eq symbol)
+                    if (tpSym eq symbol)
                       tp
                     else if (isOwnThis)
                       if (clsd.baseClassSet.contains(symbol))
@@ -1737,7 +1738,7 @@ object SymDenotations {
                 case _ =>
                   val superTp = tp.superType
                   val baseTp = recur(superTp)
-                  if (inCache(superTp) && tp.symbol.maybeOwner.isType)
+                  if (inCache(superTp) && tpSym.maybeOwner.isType && !tpSym.is(Opaque))
                     record(tp, baseTp)   // typeref cannot be a GADT, so cache is stable
                   else
                     btrCache.remove(tp)

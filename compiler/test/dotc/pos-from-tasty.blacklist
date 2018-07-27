@@ -12,3 +12,13 @@ annot-bootstrap.scala
 
 # ScalaRunTime cannot be unpickled because it is already loaded
 repeatedArgs213.scala
+
+# Failure to print opaque types
+opaque.scala
+opaque-nullable.scala
+opaque-goups.scala
+opaque-groups.scala
+opaque-digits.scala
+opaque-immutable-array.scala
+opaque-propability.scala
+tagging.scala

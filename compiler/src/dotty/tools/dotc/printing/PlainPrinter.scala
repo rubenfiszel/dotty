@@ -101,7 +101,7 @@ class PlainPrinter(_ctx: Context) extends Printer {
   protected def toTextRefinement(rt: RefinedType) =
     (refinementNameString(rt) ~ toTextRHS(rt.refinedInfo)).close
 
-  protected def argText(arg: Type): Text = homogenizeArg(arg) match {
+  protected def globalPrecArgText(arg: Type): Text = homogenizeArg(arg) match {
     case arg: TypeBounds => "_" ~ toTextGlobal(arg)
     case arg => toTextGlobal(arg)
   }
@@ -144,7 +144,7 @@ class PlainPrinter(_ctx: Context) extends Printer {
       case tp: SingletonType =>
         toTextLocal(tp.underlying) ~ "(" ~ toTextRef(tp) ~ ")"
       case AppliedType(tycon, args) =>
-        (toTextLocal(tycon) ~ "[" ~ Text(args map argText, ", ") ~ "]").close
+        (toTextLocal(tycon) ~ "[" ~ Text(args map globalPrecArgText, ", ") ~ "]").close
       case tp: RefinedType =>
         val parent :: (refined: List[RefinedType @unchecked]) =
           refinementChain(tp).reverse

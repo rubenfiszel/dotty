@@ -130,16 +130,16 @@ class RefinedPrinter(_ctx: Context) extends PlainPrinter(_ctx) {
 
   override def toText(tp: Type): Text = controlled {
     def toTextTuple(args: List[Type]): Text =
-      "(" ~ Text(args.map(argText), ", ") ~ ")"
+      "(" ~ Text(args.map(globalPrecArgText), ", ") ~ ")"
 
     def toTextFunction(args: List[Type], isImplicit: Boolean, isErased: Boolean): Text =
       changePrec(GlobalPrec) {
         val argStr: Text =
           if (args.length == 2 && !defn.isTupleType(args.head))
-            atPrec(InfixPrec) { argText(args.head) }
+            atPrec(InfixPrec) { globalPrecArgText(args.head) }
           else
             toTextTuple(args.init)
-        (keywordText("erased ") provided isErased) ~ (keywordText("implicit ") provided isImplicit) ~ argStr ~ " => " ~ argText(args.last)
+        (keywordText("erased ") provided isErased) ~ (keywordText("implicit ") provided isImplicit) ~ argStr ~ " => " ~ globalPrecArgText(args.last)
       }
 
     def toTextDependentFunction(appType: MethodType): Text = {
@@ -162,8 +162,8 @@ class RefinedPrinter(_ctx: Context) extends PlainPrinter(_ctx) {
        * needs to be parenthesized if it's an infix type, and vice versa. */
       val l :: r :: Nil = args
       val isRightAssoc = op.typeSymbol.name.endsWith(":")
-      val leftArg = if (isRightAssoc && isInfixType(l)) "(" ~ argText(l) ~ ")" else argText(l)
-      val rightArg = if (!isRightAssoc && isInfixType(r)) "(" ~ argText(r) ~ ")" else argText(r)
+      val leftArg = if (isRightAssoc && isInfixType(l)) "(" ~ globalPrecArgText(l) ~ ")" else globalPrecArgText(l)
+      val rightArg = if (!isRightAssoc && isInfixType(r)) "(" ~ globalPrecArgText(r) ~ ")" else globalPrecArgText(r)
 
       leftArg ~ " " ~ toTextLocal(op) ~ " " ~ rightArg
     }

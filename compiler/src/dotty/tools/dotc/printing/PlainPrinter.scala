@@ -101,10 +101,15 @@ class PlainPrinter(_ctx: Context) extends Printer {
   protected def toTextRefinement(rt: RefinedType) =
     (refinementNameString(rt) ~ toTextRHS(rt.refinedInfo)).close
 
-  protected def globalPrecArgText(arg: Type): Text = homogenizeArg(arg) match {
-    case arg: TypeBounds => "_" ~ toTextGlobal(arg)
-    case arg => toTextGlobal(arg)
+  protected def argText(arg: Type): Text = homogenizeArg(arg) match {
+    case arg: TypeBounds => "_" ~ toText(arg)
+    case arg => toText(arg)
   }
+
+  /** Pretty-print type `arg` for use when rendering a type argument (such as `T1` in `Foo[T1, T2]`), hence with
+    * GlobalPrec precedence.
+    */
+  protected def globalPrecArgText(arg: Type): Text = atPrec(GlobalPrec) { argText(arg) }
 
   /** The longest sequence of refinement types, starting at given type
    *  and following parents.

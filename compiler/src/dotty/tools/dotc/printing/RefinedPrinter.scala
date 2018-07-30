@@ -135,7 +135,9 @@ class RefinedPrinter(_ctx: Context) extends PlainPrinter(_ctx) {
     def toTextFunction(args: List[Type], isImplicit: Boolean, isErased: Boolean): Text =
       changePrec(GlobalPrec) {
         val argStr: Text =
-          if (args.length == 2 && !defn.isTupleType(args.head))
+          if (args.length == 2 && defn.isFunctionType(args.head)) {
+            "(" ~ globalPrecArgText(args.head) ~ ")"
+          } else if (args.length == 2 && !defn.isTupleType(args.head))
             atPrec(InfixPrec) { globalPrecArgText(args.head) }
           else
             toTextTuple(args.init)

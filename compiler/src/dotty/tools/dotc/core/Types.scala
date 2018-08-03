@@ -4169,6 +4169,10 @@ object Types {
         def loop(tree: Tree, targsAcc: List[Type], argsAcc: List[Type]): Option[(Symbol, List[Type], List[Type])] =
           tree match {
             case Trees.Apply(fn, args) =>
+              println("XXXXX")
+              println(i"AA ${tp.tree},  $fn,  $args")
+              println(s"BB ${fn.tpe.stripMethodPrefix},  ${fn.symbol},  ${fn.symbol.isPrimaryConstructor}")
+              println()
               fn.tpe.stripMethodPrefix match {
                 case fnTpe: TermRef =>
                   if (fn.symbol.isPrimaryConstructor)
@@ -4180,6 +4184,10 @@ object Types {
               }
 
             case Trees.TypeApply(fn, targs) =>
+              println("YYYYY")
+              println(i"AA ${tp.tree},  ${fn.toString},  $targs")
+              println(s"BB ${fn.tpe},  ${fn.symbol},  ${fn.symbol.isPrimaryConstructor}")
+              println()
               fn.tpe match {
                 case fnTpe: TermRef =>
                   if (fn.symbol.isPrimaryConstructor)
@@ -4189,9 +4197,14 @@ object Types {
                 case _ => loop(fn, targsAcc, argsAcc)
               }
 
+            case Trees.TypeTree() if tp.tree.tpe.isInstanceOf[TypeOf] =>
+              loop(tp.tree.tpe.asInstanceOf[TypeOf].tree, targsAcc, argsAcc)
+
             case _ => None
           }
-          loop(tp.tree, Nil, Nil)
+          val res = loop(tp.tree, Nil, Nil)
+          println(i"RES: $res")
+          res
         }
     }
 

@@ -1,0 +1,114 @@
+<[33mpackage [0m<empty>.type {
+  [33mfinal lazy module[0m [33mval[0m [36mGenericListInstanceOf[0m: [35mGenericListInstanceOf[0m = 
+    <
+      <<[33mnew [0mGenericListInstanceOf:GenericListInstanceOf>:
+        ((): GenericListInstanceOf)
+      >
+    ():GenericListInstanceOf>
+  @<
+    <
+      <[33mnew [0mscala.annotation.internal.SourceFile:
+        scala.annotation.internal.SourceFile
+      >
+    :((path: scala.Predef.String): scala.annotation.internal.SourceFile)>
+  (<[32m"tests/pos/dependent3.scala"[0m:String>):scala.annotation.internal.SourceFile> 
+    [33mfinal module[0m
+   [33mclass[0m [35mGenericListInstanceOf[0m()[33m extends[0m <
+    <<[33mnew [0mjava.lang.Object:java.lang.Object>:((): java.lang.Object)>
+  ():java.lang.Object> { 
+    [33mthis[0m: [35m{[0m <GenericListInstanceOf:GenericListInstanceOf> [35m}[0m =>
+   
+    [33mcase dependent[0m [33mclass[0m [35mOption[0m[[35mT[0m >: [35mscala.Nothing[0m <: [35mscala.Any[0m]()[33m extends[0m <
+      <<[33mnew [0mjava.lang.Object:java.lang.Object>:((): java.lang.Object)>
+    ():java.lang.Object>[33m with [0m<<_root_:<root>>.scala:scala>.Product { 
+      [33m[0m [35mT[0m[35m[0m
+      [33mdef[0m [36mcopy[0m[[35mT[0m[35m[0m](): [35mGenericListInstanceOf.Option[T][0m = 
+        <
+          <
+            <<[33mnew [0mGenericListInstanceOf.Option:GenericListInstanceOf.Option>:
+              ([T](): GenericListInstanceOf.Option[T])
+            >
+          [[35mT[0m]:((): GenericListInstanceOf.Option[T])>
+        ():GenericListInstanceOf.Option[T]>
+      [33moverride[0m [33mdef[0m [36mhashCode[0m(): [35mscala.Int[0m = <[31m-1107084844[0m:scala.Int>
+      [33moverride[0m [33mdef[0m [36mequals[0m([36mx$0[0m: [35mscala.Any[0m): [35mscala.Boolean[0m = 
+        <
+          <
+            <
+              <<[33mthis[0m:GenericListInstanceOf.Option[T](Option.this)>.eq:
+                ((x$0: java.lang.Object): scala.Boolean)
+              >
+            (
+              <<<x$0:scala.Any>.asInstanceOf:([X0] => X0)>[[35mjava.lang.Object[0m]:
+                java.lang.Object
+              >
+            ):scala.Boolean>
+          .||:((x: scala.Boolean): scala.Boolean)>
+        (
+          <<x$0:scala.Any>[33m match [0m
+            {
+              [33mcase [0mx$0 @ _: [35mGenericListInstanceOf.Option[T] @unchecked[0m => 
+                <[31mtrue[0m:scala.Boolean>
+              [33mcase [0m_ => <[31mfalse[0m:scala.Boolean>
+            }
+          :scala.Boolean>
+        ):scala.Boolean>
+      [33moverride[0m [33mdef[0m [36mtoString[0m(): [35mString[0m = 
+        <
+          <scala.runtime.ScalaRunTime._toString:
+            ((x: scala.Product): scala#Predef.String)
+          >
+        (<[33mthis[0m:GenericListInstanceOf.Option[T](Option.this)>):
+          scala#Predef.String
+        >
+      [33moverride[0m [33mdef[0m [36mcanEqual[0m([36mthat[0m: [35mscala.Any[0m): [35mscala.Boolean[0m = 
+        <<<that:scala.Any>.isInstanceOf:([X0] => scala.Boolean)>[
+          [35mGenericListInstanceOf.Option[T] @unchecked[0m
+        ]:scala.Boolean>
+      [33moverride[0m [33mdef[0m [36mproductArity[0m: [35mscala.Int[0m = <[31m0[0m:scala.Int>
+      [33moverride[0m [33mdef[0m [36mproductPrefix[0m: [35mString[0m = <[32m"Option"[0m:String>
+      [33moverride[0m [33mdef[0m [36mproductElement[0m([36mn[0m: [35mscala.Int[0m): [35mscala.Any[0m = 
+        <<n:scala.Int>[33m match [0m
+          {
+            [33mcase [0m_ => 
+              <[33mthrow [0m
+                <
+                  <<[33mnew [0mIndexOutOfBoundsException:IndexOutOfBoundsException>:
+                    ((x$0: String): IndexOutOfBoundsException)
+                  >
+                (<<<n:scala.Int>.toString:((): String)>():String>):
+                  IndexOutOfBoundsException
+                >
+              :scala.Nothing>
+          }
+        :scala.Nothing>
+    }
+    [33mfinal lazy module[0m [33mval[0m [36mOption[0m: [35mGenericListInstanceOf.Option[0m = 
+      <
+        <<[33mnew [0mGenericListInstanceOf.Option:GenericListInstanceOf.Option>:
+          ((): GenericListInstanceOf.Option)
+        >
+      ():GenericListInstanceOf.Option>
+    [33mfinal module[0m [33mclass[0m [35mOption[0m()[33m extends[0m <
+      <<[33mnew [0mjava.lang.Object:scala.AnyRef>:((): java.lang.Object)>
+    ():java.lang.Object> { 
+      [33mthis[0m: [35m{[0m <GenericListInstanceOf.Option:GenericListInstanceOf.Option> [35m}[0m =>
+     
+      [33mdependent[0m [33mdef[0m [36mapply[0m[[35mT[0m[35m[0m](): 
+        [35m[35m{ [0m[35m{ [0m[33mnew [0mOption[T]() <: X[35m }[0m() <: 
+          Apply(TypeTree[TypeOf(MethodType(List(), List(), AppliedType(TypeRef(ThisType(TypeRef(ThisType(TypeRef(NoPrefix,module class <empty>)),module class GenericListInstanceOf$)),class Option),List(TypeRef(NoPrefix,type T)))), TypeApply(TypeTree[TermRef(TypeRef(ThisType(TypeRef(ThisType(TypeRef(ThisType(TypeRef(NoPrefix,module class <root>)),module class <empty>)),module class GenericListInstanceOf$)),class Option),method <init>)],List(TypeTree[TypeRef(NoPrefix,type T)])))],List()); TypeOf(MethodType(List(), List(), AppliedType(TypeRef(ThisType(TypeRef(ThisType(TypeRef(NoPrefix,module class <empty>)),module class GenericListInstanceOf$)),class Option),List(TypeRef(NoPrefix,type T)))), TypeApply(TypeTree[TermRef(TypeRef(ThisType(TypeRef(ThisType(TypeRef(ThisType(TypeRef(NoPrefix,module class <root>)),module class <empty>)),module class GenericListInstanceOf$)),class Option),method <init>)],List(TypeTree[TypeRef(NoPrefix,type T)]))); List(); val <none>, false
+        [35m }[0m[0m
+       = 
+        <
+          <
+            <<[33mnew [0mGenericListInstanceOf.Option:GenericListInstanceOf.Option>:
+              ([T](): GenericListInstanceOf.Option[T])
+            >
+          [[35mT[0m]:<idem>>
+        ():<idem>>
+      [33mdependent[0m [33mdef[0m [36munapply[0m[[35mT[0m[35m[0m]([36mx$1[0m: [35mGenericListInstanceOf.Option[0m[[35mT[0m]): 
+        [35mscala.Boolean([31mtrue[0m)[0m
+       = <[31mtrue[0m:scala.Boolean>
+    }
+  }
+}:<empty>.type>

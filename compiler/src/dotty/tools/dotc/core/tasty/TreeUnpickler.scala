@@ -798,6 +798,7 @@ class TreeUnpickler(reader: TastyReader,
               if (sym is Flags.ModuleClass) sym.registerCompanionMethod(nme.COMPANION_CLASS_METHOD, companion)
               else sym.registerCompanionMethod(nme.COMPANION_MODULE_METHOD, companion)
             }
+            assert(!ctx.isDependent, s"READNEWDEF @ ${ctx.owner}; $sym, ${ctx.outer.isDependent} @ ${ctx.outer.owner}, ${ctx.outer.outer.isDependent} @ ${ctx.outer.outer.owner}")
             TypeDef(readTemplate(localCtx))
           } else {
             sym.info = TypeBounds.empty // needed to avoid cyclic references when unpicklin rhs, see i3816.scala
@@ -887,7 +888,9 @@ class TreeUnpickler(reader: TastyReader,
       val constr = readIndexedDef().asInstanceOf[DefDef]
       val mappedParents = parents.map(_.changeOwner(localDummy, constr.symbol))
 
+      assert(!ctx.isDependent)
       val lazyStats = readLater(end, rdr => implicit ctx => {
+        assert(!ctx.isDependent)
         val stats = rdr.readIndexedStats(localDummy, end)
         tparams ++ vparams ++ stats
       })

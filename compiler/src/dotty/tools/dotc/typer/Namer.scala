@@ -854,6 +854,7 @@ class Namer { typer: Typer =>
 
     /** The type signature of a ClassDef with given symbol */
     override def completeInCreationContext(denot: SymDenotation): Unit = {
+      assert(!ctx.isDependent)
 
       /* The type of a parent constructor. Types constructor arguments
        * only if parent type contains uninstantiated type parameters.
